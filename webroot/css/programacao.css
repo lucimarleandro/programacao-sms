@@ -1,0 +1,49 @@
+/* 
+    Document   : programacao
+    Created on : 04/01/2013, 09:46:43
+    Author     : Jonathan Souza <jonathan.souza@gmail.com>
+    Description:
+        Reúne as configurações de estilo que surgiram com o sistema de
+        programação da gestão e que [ainda] não estão integrados com o
+        layout motiro2.
+*/
+
+p {
+    line-height: 1.5em;
+}
+
+.form-login {
+    margin: 0 auto;
+    width: 60%;
+}
+
+.form-login form {
+    padding: 25px 45px;
+    border: 1px solid #999;
+    width: 45%;
+    margin: 35px auto 0;
+}
+
+.form-login input[type=text] {
+    display: block;
+    width: 70%;
+    margin: 10px auto;
+    font-size: 2em;
+    padding: 6px;
+    text-align: center;
+    background-color: #f7f7f7;
+}
+
+.form-login input[type=text]:focus {
+    background-color: #eee;
+}
+
+.form-login .submit {
+    text-align: right;
+    margin: 5px;
+}
+
+.form-login .submit input {
+    font-size: 1.2em;
+    padding: 4px 10px;
+}
