@@ -27,19 +27,23 @@ $title = empty($title_for_layout) ? $cfg['nome'] : "{$title_for_layout} :: {$cfg
         <title><?php echo $title; ?></title>
         <?php
         // Folhas de Estilo CSS
-        echo $this->Html->css(array('motiro2', 'font-awesome', 'programacao')), PHP_EOL;
+        echo $this->Html->css(array('motiro2', 'font-awesome.min', 'programacao')), PHP_EOL;
         echo $this->fetch('css'), PHP_EOL; // folhas de estilo adicionadas no runtime.
         ?>
-        <!--[if IE 7]><?php echo $this->Html->css('font-awesome-ie7'); ?><![endif]-->
+        <!--[if IE 7]><?php echo $this->Html->css('font-awesome-ie7.min'); ?><![endif]-->
     </head>
     <body>
         <div id="cabecalho" class="barratopo">
             <div class="aplicacao esquerda">
-                <?php echo $this->Html->image('programacao-branco-36a.png'); ?>
+                <?php $img = $this->Html->image('programacao-branco-36a.png'); ?>
+                <?php echo $this->Html->link($img, '/', array('escape' => false)); ?>
             </div>
+            <?php echo $this->element('usuario_cracha'); ?>
         </div>
         <div class="clear"></div>
-
+        
+        <?php echo $this->element('sub_nav'); ?>
+        
         <!-- Área Central -->
         <div id="principal" class="conteudo">
             <?php echo $this->Session->flash(); ?>

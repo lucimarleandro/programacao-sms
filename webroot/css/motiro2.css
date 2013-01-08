@@ -5,7 +5,7 @@
     Description: Layout CDI v1.0 (CSS 3)
 */
 
-/*@import url('http://fonts.googleapis.com/css?family=Open+Sans');*/
+@import url('http://fonts.googleapis.com/css?family=Open+Sans');
 
 root { 
     display: block;
@@ -33,6 +33,7 @@ a:hover {
 
 
 /*** BIBLIOTECA ***/
+.painel { overflow: hidden; }
 .clear { clear: both; display: block; }
 .block { display: block; }
 .esquerda { float: left; }
@@ -44,7 +45,6 @@ td.nowrap, th.nowrap { white-space: nowrap; }
 .barratopo,
 .navmenu,
 .submenu {
-    width: 100%;
     clear: both;
     display: block;
 }
@@ -247,6 +247,13 @@ table {
 
 table th, table td {
     padding: 5px 8px;
+}
+
+table caption {
+    padding: 8px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 table tbody tr:nth-child(odd) {

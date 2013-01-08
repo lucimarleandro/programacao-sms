@@ -47,3 +47,33 @@ p {
     font-size: 1.2em;
     padding: 4px 10px;
 }
+
+table.font-normal {
+    font-size: 1em;
+}
+
+table.pad-plus th, table.pad-plus td { padding: 10px; }
+table.pad-medio th, table.pad-medio td { padding: 6px; }
+
+.trilha {
+    font-size: .95em;
+    width: 80%;
+}
+
+.small { font-size: .85em; }
+.small, .small a { color: #666; }
+
+
+.form-inline {
+    overflow: hidden;
+    display: block;
+}
+
+.form-inline .input {
+    float: left;
+}
+
+.form-acao-novo .input input {
+    width: 96%;
+    margin: 0 auto;
+}
