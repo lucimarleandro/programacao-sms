@@ -1,7 +1,9 @@
 <?php
-
+App::uses('AppController', 'Controller');
 /**
- * 
+ * Acoes Controller
+ *
+ * @property Acao $Acao
  */
 class AcoesController extends AppController {
     

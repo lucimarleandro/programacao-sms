@@ -1,6 +1,17 @@
 <?php
-
+App::uses('AppController', 'Controller');
+/**
+ * Modulos Controller
+ *
+ * @property Modulo $Modulo
+ */
 class ModulosController extends AppController {
+    
+/**
+ *
+ * @var type 
+ */
+    public $uses = array('Modulo');
     
 /**
  * 

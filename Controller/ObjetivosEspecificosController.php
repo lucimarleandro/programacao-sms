@@ -1,7 +1,9 @@
 <?php
-
+App::uses('AppController', 'Controller');
 /**
- * 
+ * ObjetivosEspecificos Controller
+ *
+ * @property ObjetivoEspecifico $ObjetivoEspecifico
  */
 class ObjetivosEspecificosController extends AppController {
     
@@ -18,7 +20,7 @@ class ObjetivosEspecificosController extends AppController {
     public function index($objetivoGeralId = null) {
         
         if($objetivoGeralId == null) {
-            $this->Session->flash(__('Requisição inválida'), 'flash_erro');
+            $this->Session->setFlash(__('Requisição inválida'), 'flash_erro');
             $this->redirect(array('controller'=>'modulos', 'action'=>'index'));
         }
         

@@ -1,7 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Area Model
+ * Acao Model
  *
  */
 class Acao extends AppModel {
