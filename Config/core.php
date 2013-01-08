@@ -276,3 +276,11 @@ Cache::config('_cake_model_', array(
 	'serialize' => ($engine === 'File'),
 	'duration' => $duration
 ));
+
+
+Configure::write('Aplicacao', array(
+    'nome' => 'Programação Anual de Gestão - SMSJP',
+    'meta' => array(
+        'description' => 'Sistema de apoio à Programação Anual de Gestão da SMSJP'
+    )
+));

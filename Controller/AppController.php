@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application level Controller
  *
@@ -19,7 +20,6 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
 App::uses('Controller', 'Controller');
 
 /**
@@ -34,13 +34,19 @@ App::uses('Controller', 'Controller');
 class AppController extends Controller {
     
 /**
+ *
+ * @var type 
+ */
+    public $layout = 'programacao';
+    
+/**
 *
 * @var type 
 */
     public $components = array(
         'Auth' => array(
             'loginAction'=>array('controller'=>'usuarios', 'action'=>'login'),
-            'loginRedirect'=>array('controller'=>'pages', 'action'=>'display','home'),
+            'loginRedirect'=>array('controller'=>'modulos', 'action'=>'index'),
             'logoutRedirect' => array('controller'=>'pages', 'action'=>'display','home'),
             'authenticate'=>array(
                 'Form'=>array(
@@ -58,8 +64,12 @@ class AppController extends Controller {
     
 /**
  * 
+ * @param type $usuario
+ * @return boolean
  */
     public function isAuthorized($usuario) {      
         return true;        
     }
+
+    
 }

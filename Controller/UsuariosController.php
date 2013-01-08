@@ -15,7 +15,7 @@ class UsuariosController extends AppController {
     }
 
 
-    /**
+/**
  * 
  */
     public function login() {
@@ -24,7 +24,7 @@ class UsuariosController extends AppController {
                $this->Auth->login($usuario['Usuario']);
                $this->redirect($this->Auth->redirect());
            }else {
-                $this->Session->setFlash(__('Sua matrícula não foi encontrada.'), 'flash-erro');
+                $this->Session->setFlash(__('Sua matrícula não foi encontrada.'), 'flash_erro');
            }           
         }
     }
@@ -38,6 +38,7 @@ class UsuariosController extends AppController {
     
 /**
  * 
+ * @return boolean
  */
     private function autenticaUsuario() {
         $opcoes['conditions'] = array(
