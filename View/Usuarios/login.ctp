@@ -9,7 +9,11 @@
     </p>
     <?php
     echo $this->Form->create('Usuario', array('inputDefaults' => array('label' => false, 'div' => false)));
-    echo $this->Form->input('matricula', array('label' => 'Qual é a sua matrícula?'));
+    echo $this->Form->input('matricula', array(
+        'label' => 'Qual é a sua matrícula?',
+        'type' => 'text',
+        'autocomplete' => 'off'
+    ));
     echo $this->Form->end('Continuar');
     ?>
 </div>
