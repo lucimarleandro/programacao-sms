@@ -1,7 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Area Model
+ * Item Model
  *
  */
 class Item extends AppModel {

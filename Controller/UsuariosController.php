@@ -1,10 +1,10 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+App::uses('AppController', 'Controller');
+/**
+ * Usuarios Controller
+ *
+ * @property Usuario $Usuario
  */
-
 class UsuariosController extends AppController {
     
 /**
@@ -22,7 +22,7 @@ class UsuariosController extends AppController {
        if ($this->request->is('POST')) {           
            if(($usuario = $this->autenticaUsuario())) {
                $this->Auth->login($usuario['Usuario']);
-               $this->redirect($this->Auth->redirect());
+               $this->redirect($this->Auth->loginRedirect);
            }else {
                 $this->Session->setFlash(__('Sua matrícula não foi encontrada.'), 'flash_erro');
            }           

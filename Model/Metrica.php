@@ -1,7 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Area Model
+ * Metrica Model
  *
  */
 class Metrica extends AppModel {

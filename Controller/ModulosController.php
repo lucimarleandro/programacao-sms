@@ -1,6 +1,17 @@
 <?php
-
+App::uses('AppController', 'Controller');
+/**
+ * Modulos Controller
+ *
+ * @property Modulo $Modulo
+ */
 class ModulosController extends AppController {
+    
+/**
+ *
+ * @var type 
+ */
+    public $uses = array('Modulo');
     
 /**
  * 
@@ -13,8 +24,8 @@ class ModulosController extends AppController {
             'Modulo.id', 'Modulo.nome'
         );
         
-        $dados = $this->Modulo->find('all', $opcoes);
-        
+        $dados = array('Modulo'=>$this->Modulo->find('list', $opcoes));
+
         $this->set(compact('dados'));
     }
 }

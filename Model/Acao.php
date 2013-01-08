@@ -1,7 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Area Model
+ * Acao Model
  *
  */
 class Acao extends AppModel {
@@ -34,5 +34,20 @@ class Acao extends AppModel {
 			'dependent' => false,
 		)
 	);
+    
+/**
+ *
+ * @var type 
+ */
+    public $validate = array(
+        'descricao'=>array(
+            'rule'=>'notEmpty',
+            'message'=>'O campo não pode ficar vazio'
+        ),
+        'meta_programada'=>array(
+            'rule'=>'notEmpty',
+            'message'=>'O campo não pode ficar vazio'
+        )
+    );
 
 }
