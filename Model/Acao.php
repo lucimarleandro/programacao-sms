@@ -34,5 +34,20 @@ class Acao extends AppModel {
 			'dependent' => false,
 		)
 	);
+    
+/**
+ *
+ * @var type 
+ */
+    public $validate = array(
+        'descricao'=>array(
+            'rule'=>'notEmpty',
+            'message'=>'O campo não pode ficar vazio'
+        ),
+        'meta_programada'=>array(
+            'rule'=>'notEmpty',
+            'message'=>'O campo não pode ficar vazio'
+        )
+    );
 
 }

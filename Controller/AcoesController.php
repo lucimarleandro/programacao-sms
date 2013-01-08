@@ -43,16 +43,16 @@ class AcoesController extends AppController {
  * 
  */
     public function adicionar() {
-        $this->autoRender = false;
+        //$this->autoRender = false;
         if($this->request->is('POST')) {
             $this->Acao->create();
             if($this->Acao->save($this->request->data)) {
                 $this->Session->setFlash(__('Cadastrado com sucesso'), 'flash_sucesso');
+                $this->redirect(array('controller'=>'acoes', 'action'=>'index', $this->request->data['Acao']['objetivo_especifico_id']));
             }else {
                 $this->Session->setFLash(__('Não foi possível cadastrar'), 'flash_erro');
-            }
-            
-            $this->redirect(array('controller'=>'acoes', 'action'=>'index', $this->request->data['Acao']['objetivo_especifico_id']));
+                $this->setAction('index', $this->request->data['Acao']['objetivo_especifico_id']);
+            }            
         }
     }
     

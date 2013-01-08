@@ -24,8 +24,8 @@ class ModulosController extends AppController {
             'Modulo.id', 'Modulo.nome'
         );
         
-        $dados = $this->Modulo->find('all', $opcoes);
-        
+        $dados = array('Modulo'=>$this->Modulo->find('list', $opcoes));
+
         $this->set(compact('dados'));
     }
 }

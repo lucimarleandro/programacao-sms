@@ -18,6 +18,8 @@ class AreasController extends AppController {
  * @param type $modulo_id
  */
     public function index($moduloId = null) {
+        $this->Area->recursive = -1;
+        $this->Modulo->recursive = -1;
         
         if($moduloId == null) {
             $this->Session->setFlash(__('Requisição inválida'), 'flash_erro');
@@ -25,11 +27,20 @@ class AreasController extends AppController {
         }
         
         $opcoes['conditions'] = array(
-            'Modulo.id'=>$moduloId
+            'Area.modulo_id'=>$moduloId
+        );        
+        $opcoes['order'] = array(
+            'Area.nome ASC'
+        );
+        $opcoes['fields'] = array(
+            'Area.id', 'Area.nome'
         );
 
-        $dados = $this->Area->Modulo->find('first', $opcoes);
-
+        $areas = $this->Area->find('list', $opcoes);        
+        $modulo = $this->Area->Modulo->find('first', array('conditions'=>array('Modulo.id'=>$moduloId)));
+        
+        $dados = $modulo + array('Area'=>$areas);
+        
         $this->set(compact('dados'));
     }
     
