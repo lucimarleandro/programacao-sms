@@ -6,7 +6,7 @@
  * um link para retornar à página de listagem das ações (do mesmo
  * objetivo específico) e o valor do orçamento para a ação atual.
  */
-if (!isset($dados['Acao']['nome'])) :
+if (!isset($dados['Acao']['descricao'])) :
 
     // Exibe a trilha apenas se ao menos um destes dados existe.
     if (isset($dados['Modulo']['nome'])
@@ -73,11 +73,20 @@ else :
     <div class="navmenu painel">
         <div class="trilha esquerda" style="width: 70%">
             <div style="padding-left: 5px">
+                <i class="icon-reply"></i>
+                <?php echo $this->Html->link('retornar ao objetivo específico desta ação', array(
+                    'controller' => 'acoes',
+                    'action' => 'index',
+                    $dados['Acao']['objetivo_especifico_id']
+                )); ?>
+            </div>
+            <div class="clear">&nbsp;</div>
+            <div style="padding-left: 5px">
                 Você está realizando o orçamento da ação:
             </div>
             <div style="padding-left: 15px; margin-top: 5px;">
                 <i class="icon-caret-right"></i>&nbsp;
-                <strong><?php echo mb_strtoupper($dados['Acao']['nome'], 'utf-8'); ?></strong>
+                <strong><?php echo mb_strtoupper($dados['Acao']['descricao'], 'utf-8'); ?></strong>
             </div>
         </div>
         <div class="direita orcamento" style="width: 20%">
@@ -96,4 +105,3 @@ else :
 <?php
 endif; // ação
 ?>
-</div>
