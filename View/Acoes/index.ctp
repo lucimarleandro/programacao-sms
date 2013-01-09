@@ -24,12 +24,12 @@
     </div>
     <div class="input" style="width: 15%">
         <?php echo $this->Form->label(false, '&nbsp;'); ?>
-        <?php echo $this->Form->button('<i class="icon-plus"></i> Adicionar meta', array('type' => 'submit')); ?>
+        <?php echo $this->Form->button('<i class="icon-plus"></i> Adicionar ação', array('type' => 'submit')); ?>
     </div>
     <?php echo $this->Form->end(); ?>
 </div>
 
-<table cellspacing="0" class="">
+<table cellspacing="0" class="font-normal">
     <thead>
         <tr>
             <th>Descrição da Ação</th>
@@ -44,9 +44,14 @@
                     <td><?php echo $acao['descricao']; ?></td>
                     <td><?php echo $acao['meta_programada']; ?></td>
                     <td class="acoes centralizado">
-                        <a href="javascript:;"><i class="icon-shopping-cart"></i> abrir orçamento</a>
                         <?php
-                        $orc = (double) mt_rand() / mt_rand() * 1000;//$this->requestAction(array('controller' => 'orcamentos', 'action' => 'somaOrcamento', $acao['id']));
+                        echo $this->Html->link(
+                            '<i class="icon-shopping-cart"></i> abrir orçamento',
+                            array('controller' => 'itens', 'action' => 'index', $acao['id']),
+                            array('escape' => false)
+                        );
+
+                        $orc = $this->requestAction(array('controller' => 'orcamentos', 'action' => 'somaOrcamento', $acao['id']));
                         if ($orc > 0) {
                             ?>
                             <span class="small block">[R$ <?php echo number_format($orc, 2, ',', '.'); ?>]</span>
