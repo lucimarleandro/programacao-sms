@@ -23,7 +23,13 @@ class AreasController extends AppController {
         
         if($moduloId == null) {
             $this->Session->setFlash(__('Requisição inválida'), 'flash_erro');
-            $this->redirect(array('controller'=>'modulos', 'action'=>'index'));
+            $this->redirect('/');
+        }
+        
+        $modulo = $this->Modulo->findById($moduloId);
+        if(empty($modulo)) {
+            $this->Session->setFLash(__('Não foi possível processar a requisição. Tente novamente.'), 'flash_erro');
+            $this->redirect('/');
         }
         
         $opcoes['conditions'] = array(
@@ -36,10 +42,8 @@ class AreasController extends AppController {
             'Area.id', 'Area.nome'
         );
 
-        $areas = $this->Area->find('list', $opcoes);        
-        $modulo = $this->Area->Modulo->find('first', array('conditions'=>array('Modulo.id'=>$moduloId)));
-        
-        $dados = $modulo + array('Area'=>$areas);
+        $areas = array('Area'=>$this->Area->find('list', $opcoes));        
+        $dados = $modulo + $areas;
         
         $this->set(compact('dados'));
     }

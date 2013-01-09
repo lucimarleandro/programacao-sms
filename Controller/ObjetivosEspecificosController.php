@@ -11,7 +11,7 @@ class ObjetivosEspecificosController extends AppController {
  *
  * @var type 
  */
-    public $uses = array('ObjetivoEspecifico', 'ObjetivoGeral', 'Area', 'Modulo');
+    public $uses = array('ObjetivoEspecifico', 'ObjetivoGeral', 'Area', 'Modulo', 'Acao');
     
 /**
  * 
@@ -23,12 +23,19 @@ class ObjetivosEspecificosController extends AppController {
         $this->ObjetivoGeral->recursive = -1;
         $this->Area->recursive = -1;
         $this->Modulo->recursive = -1;
+        $this->Acao->recursive = -1;
         
         if($objetivoGeralId == null) {
             $this->Session->setFlash(__('Requisição inválida'), 'flash_erro');
             $this->redirect(array('controller'=>'modulos', 'action'=>'index'));
         }
         
+        $objetivoGeral = $this->ObjetivoGeral->findById($objetivoGeralId);
+        if(empty($objetivoGeral)) {
+            $this->Session->setFLash(__('Não foi possível processar a requisição. Tente novamente.'), 'flash_erro');
+            $this->redirect('/');
+        }
+                
         $opcoes['conditions'] = array(
             'ObjetivoEspecifico.objetivo_geral_id'=>$objetivoGeralId
         );
@@ -40,13 +47,32 @@ class ObjetivosEspecificosController extends AppController {
         );
         
         $objetivosEspecificos = array('ObjetivoEspecifico'=>$this->ObjetivoEspecifico->find('list', $opcoes));
-        $objetivoGeral = $this->ObjetivoGeral->find('first', array('conditions'=>array('ObjetivoGeral.id'=>$objetivoGeralId)));
-        $area = $this->Area->find('first', array('conditions'=>array('Area.id'=>$objetivoGeral['ObjetivoGeral']['area_id'])));
-        $modulo = $this->Modulo->find('first', array('conditions'=>array('Modulo.id'=>$area['Area']['modulo_id'])));
+        $area = $this->Area->findById($objetivoGeral['ObjetivoGeral']['area_id']);
+        $modulo = $this->Modulo->findById($area['Area']['modulo_id']);
         
-        $dados = $modulo + $area + $objetivoGeral + $objetivosEspecificos;
+         $dados = $modulo + $area + $objetivoGeral + $objetivosEspecificos;
         
-        $this->set(compact('dados'));
+        /* Conta a quantidade de ações de cada objetivo específico */
+        unset($opcoes);        
+        $ids = array_keys($objetivosEspecificos['ObjetivoEspecifico']);
+        $opcoes['conditions'] = array(
+            'Acao.objetivo_especifico_id'=>$ids    
+        );
+        $opcoes['fields'] = array(
+            'Acao.objetivo_especifico_id AS id', 'count(Acao.objetivo_especifico_id) AS total'
+        );
+        $opcoes['group'] = array(
+            'Acao.objetivo_especifico_id'
+        );
+        $acoes = $this->Acao->find('all', $opcoes);
+        
+        $contaAcoes = array();
+        foreach($acoes as $acao):
+            $contaAcoes[$acao['Acao']['id']] = $acao[0]['total'];
+        endforeach;
+        /* */
+                
+        $this->set(compact('dados', 'contaAcoes'));
     }
     
 }

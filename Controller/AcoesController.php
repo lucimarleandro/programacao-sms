@@ -11,30 +11,28 @@ class AcoesController extends AppController {
  *
  * @var type 
  */
-    public $uses = array('Acao');
+    public $uses = array('Acao', 'ObjetivoEspecifico', 'Area');
     
 /**
  * 
  * @param type $objetivoEspecificoId
  */
-    public function index($objetivoEspecificoId = null) {
+    public function index($objetivoEspecificoId = null) {        
+        $this->Area->recursive = 0;
         
         if($objetivoEspecificoId == null) {
             $this->Session->setflash(__('Requisição inválida'), 'flash_erro');
             $this->redirect(array('controller'=>'modulos', 'action'=>'index'));
         }
         
-        $opcoes['conditions'] = array(
-            'ObjetivoEspecifico.id'=>$objetivoEspecificoId
-        );
+        $objetivoEspecifico = $this->ObjetivoEspecifico->findById($objetivoEspecificoId);
+        if(empty($objetivoEspecifico)) {
+            $this->Session->setFLash(__('Não foi possível processar a requisição. Tente novamente.'), 'flash_erro');
+            $this->redirect('/');
+        }
         
-        $dados = $this->Acao->ObjetivoEspecifico->find('first', $opcoes);
-        
-        $this->Acao->ObjetivoEspecifico->ObjetivoGeral->Area->recursive = 0;
-        $area_modulo = $this->Acao->ObjetivoEspecifico->ObjetivoGeral->Area->find('first', array('conditions'=>array('Area.id'=>$dados['ObjetivoGeral']['area_id'])));
-      
-        $dados['Area'] = $area_modulo['Area'];
-        $dados['Modulo'] = $area_modulo['Modulo'];
+        $area_modulo = $this->Area->findById($objetivoEspecifico['ObjetivoGeral']['area_id']);      
+        $dados = $area_modulo + $objetivoEspecifico;
 
         $this->set(compact('dados'));        
     }

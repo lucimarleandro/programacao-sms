@@ -28,6 +28,12 @@ class ObjetivosGeraisController extends AppController {
             $this->redirect(array('controller'=>'modulos', 'action'=>'index'));
         }
         
+        $area = $this->Area->findById($areaId);        
+        if(empty($area)) {
+            $this->Session->setFLash(__('Não foi possível processar a requisição. Tente novamente.'), 'flash_erro');
+            $this->redirect('/');
+        }
+        
         $opcoes['conditions'] = array(
             'ObjetivoGeral.area_id'=>$areaId
         );
@@ -39,9 +45,7 @@ class ObjetivosGeraisController extends AppController {
         );
         
         $objetivosGerais = array('ObjetivoGeral'=>$this->ObjetivoGeral->find('list', $opcoes));
-        $area = $this->Area->find('first', array('conditions'=>array('Area.id'=>$areaId)));
-        $modulo = $this->Modulo->find('first', array('conditions'=>array('Modulo.id'=>$area['Area']['modulo_id'])));
-        
+        $modulo = $this->Modulo->findById($area['Area']['modulo_id']);        
         $dados = $modulo + $area + $objetivosGerais;
         
         $this->set(compact('dados'));
