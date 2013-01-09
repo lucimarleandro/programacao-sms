@@ -77,3 +77,56 @@ table.pad-medio th, table.pad-medio td { padding: 6px; }
     width: 96%;
     margin: 0 auto;
 }
+
+.nopadding {
+    margin: 0px;
+    padding: 0px;
+}
+
+.minpadding {
+    margin: 2px;
+    padding: 3px;
+}
+
+.orcamento {
+    overflow: hidden;
+    background: #ddd;
+    color: #555;
+    border: 1px solid #777;
+}
+
+.orcamento .cifrao {
+    font-size: 3em;
+    color: #555;
+    background: #bbb;
+    padding: 7px 5px;
+    float: left;
+}
+
+.orcamento .wrapper {
+    margin-left: 22%;
+    max-width: 80%;
+    padding: 3px;
+}
+
+.orcamento .legenda {
+    display: block;
+    padding-bottom: 5px;
+    font-size: .85em;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    
+    border-bottom: 1px solid #999;
+}
+
+.orcamento .valor {
+    font-size: 2em;
+    text-align: center;
+    padding: 3px 3px 0;
+}
+
+.error-message {
+    color: red;
+    padding: 3px 5px;
+}

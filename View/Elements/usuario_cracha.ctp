@@ -5,6 +5,9 @@
             <span class="block"><?php echo mb_strtoupper($usuario['nome'], 'utf-8'); ?></span>
         </div>
         <div class="links">
+            <?php echo $this->Html->link('ajuda', 'javascript:;') ?>
+            <i class="icon-question-sign"></i>
+            |
             <?php echo $this->Html->link('encerrar sessão', array(
                 'controller' => 'usuarios',
                 'action' => 'logout'

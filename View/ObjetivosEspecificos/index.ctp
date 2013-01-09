@@ -6,11 +6,19 @@
                 <tr>
                     <td>
                         <?php
-                        echo $this->Html->link($objetivo, array(
-                            'controller' => 'acoes',
-                            'action' => 'index',
-                            $id
-                        ));
+                        $url = array('controller' => 'acoes', 'action' => 'index', $id);
+                        echo $this->Html->link($objetivo, $url);
+                        ?>
+                    </td>
+                    <td style="width: 10%" class="centralizado">
+                        <?php
+                        // Quando for zero, não aparecerá na lista
+                        if (isset($contaAcoes[$id])) {
+                            $num = $contaAcoes[$id];
+                            $texto = ($num > 1) ? "{$num} ações" : "1 ação";
+                            echo $this->Html->link($texto, $url);
+                        } else
+                            echo "&nbsp;";
                         ?>
                     </td>
                 </tr>
