@@ -39,7 +39,7 @@ class OrcamentosController extends AppController {
             $this->Session->setFlash(__('Erro ao adicionar'), 'flah_erro');
         }
         
-        $this->redirect(array('controller'=>'itens', 'action'=>'index', $this->request->data['Orcamento']['acao_id']));
+        $this->redirect($this->referer(true));
     }
     
 /**
@@ -73,4 +73,67 @@ class OrcamentosController extends AppController {
         return doubleval($soma[0]['soma']);
     }
 
+    /**
+     * Carrega os itens (geral e procedimentos) orçados na ação selecionada.
+     */
+    public function index() {
+        $named = $this->request->params['named'];
+        $acaoId = isset($named['acao']) ? $named['acao'] : false;
+        $acao = is_numeric($acaoId) ? $this->Orcamento->Acao->find('first', array(
+            'conditions' => array('Acao.id' => $acaoId),
+            'recursive' => -1
+        )) : false;
+        
+        if ($acao == 0) {
+            $this->Session->setFlash('Não foi possível processar sua solicitação, tente novamente.');
+            $this->redirect($this->request->referer());
+        }
+        
+        // Carrega os itens gerais no orçamento da ação
+        $orcamento['Itens'] = $this->Orcamento->find('all', array(
+            'conditions' => array(
+                'Orcamento.acao_id' => $acaoId,
+                'Orcamento.tipo' => ORCAMENTO_ITENSGERAIS
+            ),
+            'fields' => array(
+                'Orcamento.id',
+                'Orcamento.qtde',
+                'Item.id',
+                'Item.valor',
+                'Item.nome',
+                'Item.descricao',
+                'Item.metrica_id'
+            )
+        ));
+        
+        // Carrega os procedimentos no orçamento da ação
+        $orcamento['Procedimentos'] = $this->Orcamento->find('all', array(
+            'conditions' => array(
+                'Orcamento.acao_id' => $acaoId,
+                'Orcamento.tipo' => ORCAMENTO_PROCEDIMENTOS
+            ),
+            'fields' => array(
+                'Orcamento.id',
+                'Orcamento.qtde',
+                'Procedimento.valor',
+                'Procedimento.nome',
+                'Procedimento.codigo',
+                'Procedimento.tipo',
+            )
+        ));
+        
+        $this->set(compact('orcamento'));
+        $this->set('dados', $acao);
+    }
+
+    public function removeItem() {
+        if ($this->request->is('post')) {
+            $oid = isset($this->request->data['orcamentoId']) ? $this->request->data['orcamentoId'] : false;
+            if ($oid && is_numeric($oid)) {
+                if (!$this->Orcamento->delete($oid))
+                    $this->Session->setFlash('Houve uma falha ao remover o item. Tente outra vez.', 'flash_erro');
+            }
+        }
+        $this->redirect($this->referer(true));
+    }
 }

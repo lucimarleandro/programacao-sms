@@ -40,13 +40,20 @@ class ItensController extends AppController {
                     'Orcamento.item_id = Item.id',
                     'Orcamento.acao_id'=>$acaoId
                 )
+            ),
+            // Junta com os dados da fonte.
+            array(
+                'table' => 'itens_fontes',
+                'alias' => 'Fonte',
+                'type' => 'LEFT',
+                'conditions' => array('Fonte.id = Item.fonte_id')
             )
         );
         $opcoes['order'] = array(
             'Item.nome'=>'ASC'
         );
         $opcoes['fields'] = array(
-            'Item.*', 'Orcamento.qtde'
+            'Item.*', 'Orcamento.qtde', 'Fonte.nome'
         );        
         $itens = array('Item'=>$this->Item->find('all', $opcoes));
         $dados = $acao + $itens;

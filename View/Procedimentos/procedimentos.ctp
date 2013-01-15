@@ -1,7 +1,23 @@
-<h1><i class="icon-asterisk"></i> Banco de Itens Gerais</h1>
-<p>&nbsp;</p>
+<?php
+switch ($tipo_proc) {
+    case PROC_AMBULATORIAL:
+        $icone = 'ambulance';
+        $texto = 'Banco de Procedimentos Ambulatoriais';
+        break;
+    case PROC_HOSPITALAR:
+        $icone = 'hospital';
+        $texto = 'Banco de Procedimentos Hospitalares';
+        break;
+    default:
+        $icone = 'asterisk';
+        $texto = 'Banco de Procedimentos Gerais';
+        break;
+}
+?>
+<h1><i class="icon-<?php echo $icone; ?>"></i>&nbsp;<?php echo $texto; ?></h1>
+
 <table cellspacing="0" class="gradeada">
-    <?php if (!isset($dados['Item']) || count($dados['Item']) == 0) : ?>
+    <?php if (!isset($dados['Procedimento']) || count($dados['Procedimento']) == 0) : ?>
         <thead>
             <tr>
                 <th style="width: 30%"></th>
@@ -22,28 +38,24 @@
             'id' => false,
             'inputDefaults' => array('div' => false, 'label' => 'false', 'error' => false),
             'method' => 'post',
-            'url' => array('controller' => 'orcamentos', 'action' => 'add')
-        ));
+            'url' => array('controller' => 'orcamentos', 'action' => 'add')));
         $formAcaoInput = $this->Form->hidden('Orcamento.acao_id', array('value' => $acao_id));
         $formEnd = $this->Form->end();
         $indisp = '<span class="small"><em>&lt;não disponível&gt;</em></span>';
         $btn_atualiza = $this->Form->button("<i class='icon-refresh'></i>", array(
             'type' => 'submit',
             'class' => 'minpadding',
-            'title' => 'Atualizar quantidade'
-        ));
+            'title' => 'Atualizar quantidade'));
         $btn_adiciona = $this->Form->button("<i class='icon-plus'></i>", array(
             'type' => 'submit',
             'class' => 'minpadding',
-            'title' => 'Adicionar ao orçamento'
-        ));
+            'title' => 'Adicionar ao orçamento'));
         ?>
         <thead>
             <tr>
-                <th style="min-width: 15%">Nome</th>
-                <th style="min-width: 35%">Descrição</th>
-                <th>Marca</th>
-                <th>Unidade de Medida</th>
+                <th style="min-width: 7%">Código</th>
+                <th style="min-width: 50%">Procedimento</th>
+                <th>Fonte</th>
                 <th>Quantidade</th>
                 <th>Frequência</th>
                 <th style="min-width: 5%">Valor Unitátio</th>
@@ -51,29 +63,19 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($dados['Item'] as $item) : ?>
+            <?php foreach ($dados['Procedimento'] as $item) : ?>
                 <?php
-                $i_id = $item['Item']['id'];
-                $i_nome = $item['Item']['nome'];
-                $i_marca = $item['Item']['marca'];
-                $i_descr = $item['Item']['descricao'];
-                $i_valor = number_format($item['Item']['valor'], 2, ',', '.');
-                $i_metrica = $item['Item']['metrica_id'];
-                $i_fonte = isset($item['Fonte']['nome']) ? $item['Fonte']['nome'] : false;
+                $i_id = $item['Procedimento']['codigo'];
+                $i_nome = $item['Procedimento']['nome'];
+                $i_valor = number_format($item['Procedimento']['valor'], 2, ',', '.');
+                $i_fonte = isset($item['Fonte']['nome']) ? $item['Fonte']['nome'] : $indisp;
                 $o_qtde = isset($item['Orcamento']['qtde']) ? doubleval($item['Orcamento']['qtde']) : 0;
-                $s_total = number_format($item['Item']['valor'] * $o_qtde, 2, ',', '.');
+                $s_total = number_format($item['Procedimento']['valor'] * $o_qtde, 2, ',', '.');
                 ?>
                 <tr>
-                    <td><?php echo isset($i_nome) ? $i_nome : $indisp; ?></td>
-                    <td>
-                        <?php
-                        echo $i_descr;
-                        if ($i_fonte)
-                            echo "<span class='block small' style='margin-top: 10px'><em>(Fonte: {$i_fonte})</em></span>";
-                        ?>
-                    </td>
-                    <td class="centralizado"><?php echo isset($i_marca) ? $i_marca : $indisp; ?></td>
-                    <td class="centralizado"><?php echo isset($i_metrica) ? $i_metrica : $indisp; ?></td>
+                    <td class="centralizado"><?php echo $i_id; ?></td>
+                    <td><?php echo $i_nome; ?></td>
+                    <td class="centralizado"><?php echo $i_fonte; ?></td>
                     <td class="centralizado nowrap">
                         <?php
                         echo $formInit;
@@ -86,7 +88,7 @@
                         echo ($o_qtde > 0) ? $btn_atualiza : $btn_adiciona;
                         echo $formAcaoInput;
                         echo $this->Form->hidden('Orcamento.item_id', array('value' => $i_id));
-                        echo $this->Form->hidden('Orcamento.tipo', array('value' => ORCAMENTO_ITENSGERAIS));
+                        echo $this->Form->hidden('Orcamento.tipo', array('value' => ORCAMENTO_PROCEDIMENTOS));
                         echo $formEnd;
                         ?>
                     </td>

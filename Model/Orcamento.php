@@ -5,6 +5,7 @@ App::uses('AppModel', 'Model');
  *
  * @property Acao $Acao
  * @property Item $Item
+ * @property Procedimento $Procedimento
  */
 class Orcamento extends AppModel {
 
@@ -23,7 +24,12 @@ class Orcamento extends AppModel {
 		),
 		'Item' => array(
 			'className' => 'Item',
-			'foreignKey' => 'item_id'
-		)
+			'foreignKey' => 'item_id',
+                        'conditions' => array('Orcamento.tipo' => 'I')
+		),
+                'Procedimento' => array(
+                    'foreignKey' => 'item_id',
+                    'conditions' => array('Orcamento.tipo' => 'P')
+                )
 	);
 }

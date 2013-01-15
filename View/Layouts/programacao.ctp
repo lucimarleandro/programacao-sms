@@ -4,7 +4,6 @@
  */
 $cfg = Configure::read('Aplicacao');
 $cfg['nome'] = isset($cfg['nome']) ? $cfg['nome'] : 'Aplicação CDI - SMSJP';
-$title = empty($title_for_layout) ? $cfg['nome'] : "{$title_for_layout} :: {$cfg['nome']}";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br">
@@ -24,7 +23,7 @@ $title = empty($title_for_layout) ? $cfg['nome'] : "{$title_for_layout} :: {$cfg
 
         echo $this->Html->meta('favicon.ico', '/favicon.ico', array('type' => 'icon')), PHP_EOL;
         ?>
-        <title><?php echo $title; ?></title>
+        <title><?php echo $cfg['nome']; ?></title>
         <?php
         // Folhas de Estilo CSS
         echo $this->Html->css(array('motiro2', 'font-awesome.min', 'programacao')), PHP_EOL;
@@ -70,7 +69,12 @@ $title = empty($title_for_layout) ? $cfg['nome'] : "{$title_for_layout} :: {$cfg
             <br />
             <?php echo $this->Html->image('carregando.gif'); ?>
         </div>
-
-        <?php if (Configure::read('debug') == 2) echo $this->element('sql_dump'); ?>
+        <?php
+        echo $this->Js->writeBuffer();
+        echo $this->fetch('script');
+        
+        if (Configure::read('debug') == 2)
+            echo $this->element('sql_dump');
+        ?>
     </body>
 </html>

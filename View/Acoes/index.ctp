@@ -46,8 +46,11 @@
                     <td class="acoes centralizado">
                         <?php
                         echo $this->Html->link(
-                            '<i class="icon-shopping-cart"></i> abrir orçamento',
-                            array('controller' => 'itens', 'action' => 'index', $acao['id']),
+                            '<span style="font-weight: bold">$</span> abrir orçamento',
+                            array(
+                                'controller' => 'orcamentos',
+                                'action' => 'index',
+                                'acao' => $acao['id']),
                             array('escape' => false)
                         );
 

@@ -16,5 +16,6 @@
         'autocomplete' => 'off'
     ));
     echo $this->Form->end('Continuar');
+    $this->Html->scriptBlock('document.getElementById("UsuarioMatricula").focus();', array('inline' => false));
     ?>
 </div>

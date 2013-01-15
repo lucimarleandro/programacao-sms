@@ -52,6 +52,13 @@ class AcoesController extends AppController {
                 $this->setAction('index', $this->request->data['Acao']['objetivo_especifico_id']);
             }            
         }
+        
+        /**
+         * Redireciona o usuário para a página anterior ou a inicial caso
+         * o método utilizado para chegar a esta página não seja por via POST.
+         * @author Jonathan Souza <rds_ralison@yahoo.com.br>
+         */
+        $this->redirect($this->referer());
     }
     
 }

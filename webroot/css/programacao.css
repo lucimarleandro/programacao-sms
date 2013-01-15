@@ -12,6 +12,8 @@ p {
     line-height: 1.5em;
 }
 
+a i { text-decoration: none !important; }
+
 .form-login {
     margin: 0 auto;
     width: 60%;
@@ -60,9 +62,8 @@ table.pad-medio th, table.pad-medio td { padding: 6px; }
     width: 80%;
 }
 
-.small { font-size: .85em; }
-.small, .small a { color: #666; }
-
+small, .small { font-size: .85em; }
+small, small a, .small, .small a { color: #666; }
 
 .form-inline {
     overflow: hidden;
@@ -129,4 +130,68 @@ table.pad-medio th, table.pad-medio td { padding: 6px; }
 .error-message {
     color: red;
     padding: 3px 5px;
+}
+
+.navorcamento {
+    display: block;
+    clear: both;
+    margin: 15px 0;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    background-color: #eee;
+}
+
+.navorcamento .legenda {
+    float: left;
+    text-align: center;
+    padding: 10px;
+    background-color: #ddd;
+}
+
+.navorcamento a {
+    float: left;
+    text-align: center;
+    padding: 10px 15px;
+    font-size: .85em;
+    line-height: 1.5em;
+}
+
+.navorcamento a:hover {
+    background-color: #f3f3f3;
+}
+
+.navorcamento a i {
+    display: block;
+}
+
+table.bordered,
+table.bordered th,
+table.bordered td {
+    border: 1px solid #ddd;
+}
+
+table.bordered {
+    border-width: 1px 1px 0 0;
+}
+table.bordered th,
+table.bordered td {
+    border-width: 0 0 1px 1px;
+}
+
+table {
+    background-color: #fbfbfb;
+}
+
+table.gradeada thead tr {
+    background-color: #555;
+}
+
+table.gradeada tbody tr th,
+table.gradeada tbody tr td {
+    border-bottom: 1px solid #555;
+}
+
+table.gradeada thead tr th,
+table.gradeada thead tr td {
+    color: #fff;
 }

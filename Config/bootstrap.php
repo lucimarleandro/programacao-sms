@@ -179,3 +179,14 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+
+// Carrega o plugin de auditoria
+CakePlugin::load('CdiGadgets');
+
+// Constantes Globais
+define('PROC_AMBULATORIAL', 'A');
+define('PROC_HOSPITALAR', 'H');
+
+define('ORCAMENTO_PROCEDIMENTOS', 'P');
+define('ORCAMENTO_ITENSGERAIS', 'I');

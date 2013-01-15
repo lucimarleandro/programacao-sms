@@ -69,6 +69,7 @@ if (!isset($dados['Acao']['descricao'])) :
     endif; // trilha
 else :
     // A ação foi identificada
+    $orcamentoLink = array('controller' => 'orcamentos', 'action' => 'index', 'acao' => $dados['Acao']['id']);
     ?>
     <div class="navmenu painel">
         <div class="trilha esquerda" style="width: 70%">
@@ -87,12 +88,15 @@ else :
             <div style="padding-left: 15px; margin-top: 5px;">
                 <i class="icon-caret-right"></i>&nbsp;
                 <strong><?php echo mb_strtoupper($dados['Acao']['descricao'], 'utf-8'); ?></strong>
+                <small>(<?php echo $this->Html->link('ver orçamento', $orcamentoLink, array('style' => 'white-space: nowrap')); ?>)</small>
             </div>
         </div>
         <div class="direita orcamento" style="width: 20%">
             <div class="cifrao">R$</div>
             <div class="wrapper">
-                <div class="legenda">orçamento desta ação</div>
+                <div class="legenda">
+                    <?php echo $this->Html->link('orçamento desta ação', $orcamentoLink); ?>
+                </div>
                 <div class="valor">
                     <?php
                     $soma = $this->requestAction(array('controller' => 'orcamentos', 'action' => 'somaOrcamento', $dados['Acao']['id']));
