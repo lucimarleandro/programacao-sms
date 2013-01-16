@@ -47,30 +47,7 @@ class OrcamentosController extends AppController {
  * @param type $acaoId
  */
     public function somaOrcamento($acaoId) {
-        $this->autoRender = false;        
-        $this->Orcamento->recursive = -1;
-        
-        $opcoes['joins'] = array(
-            array(
-                'table'=>'itens',
-                'alias'=>'Item',
-                'type'=>'INNER',
-                'conditions'=>array(
-                    'Orcamento.item_id = Item.id',
-                    'Orcamento.acao_id'=>$acaoId
-                )
-            )
-        );
-        $opcoes['conditions'] = array(
-            'Orcamento.acao_id'=>$acaoId
-        );
-        $opcoes['fields'] = array(
-            'sum(Orcamento.qtde * Item.valor) AS soma'
-        );
-        
-        $soma = $this->Orcamento->find('first', $opcoes);
-
-        return doubleval($soma[0]['soma']);
+        return $this->Orcamento->totalPorAcao($acaoId);
     }
 
     /**

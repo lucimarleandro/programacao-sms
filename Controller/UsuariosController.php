@@ -37,13 +37,16 @@ class UsuariosController extends AppController {
     }
     
 /**
- * 
- * @return boolean
+ * Realiza a verificação da matrícula informada pelo usuário e retorna os
+ * dados do mesmo como um array.
+ * @return array|boolean False se a matrícula não for encontrada.
  */
     private function autenticaUsuario() {
-        $opcoes['conditions'] = array(
-            'Usuario.matricula'=>$this->request->data['Usuario']['matricula']
-        );        
+        $matricula = preg_replace('/[^0-9]/', '', $this->request->data['Usuario']['matricula']);
+        if (!preg_match('/^[0-9]{6}$/', $matricula))
+            return false;
+        
+        $opcoes['conditions'] = array('Usuario.matricula' => $matricula);        
         $usuario = $this->Usuario->find('first', $opcoes);
         
         if(!empty($usuario)) {            

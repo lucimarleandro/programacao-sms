@@ -30,7 +30,7 @@ class ObjetivosGeraisController extends AppController {
         
         $area = $this->Area->findById($areaId);        
         if(empty($area)) {
-            $this->Session->setFLash(__('Não foi possível processar a requisição. Tente novamente.'), 'flash_erro');
+            $this->Session->setFlash(__('Não foi possível processar a requisição. Tente novamente.'), 'flash_erro');
             $this->redirect('/');
         }
         

@@ -4,6 +4,8 @@ App::uses('AppController', 'Controller');
  * ObjetivosEspecificos Controller
  *
  * @property ObjetivoEspecifico $ObjetivoEspecifico
+ * @property Acao $Acao
+ * @property Orcamento $Orcamento
  */
 class ObjetivosEspecificosController extends AppController {
     
@@ -11,7 +13,7 @@ class ObjetivosEspecificosController extends AppController {
  *
  * @var type 
  */
-    public $uses = array('ObjetivoEspecifico', 'ObjetivoGeral', 'Area', 'Modulo', 'Acao');
+    public $uses = array('ObjetivoEspecifico', 'ObjetivoGeral', 'Area', 'Modulo', 'Acao', 'Orcamento');
     
 /**
  * 
@@ -72,7 +74,20 @@ class ObjetivosEspecificosController extends AppController {
         endforeach;
         /* */
                 
-        $this->set(compact('dados', 'contaAcoes'));
+        /**
+         * Soma orçamento ações
+         */
+        $somaAcoes = array();
+        foreach ($ids as $espec_id) {
+            $acoes = $this->Acao->find('list', array(
+                'fields' => 'Acao.id',
+                'conditions' => array('Acao.objetivo_especifico_id' => $espec_id)
+            ));
+            $acoes_ids = array_keys($acoes);
+            $somaAcoes[$espec_id] = $this->Orcamento->totalPorAcao($acoes_ids);
+        }
+        
+        $this->set(compact('dados', 'contaAcoes', 'somaAcoes'));
     }
     
 }
