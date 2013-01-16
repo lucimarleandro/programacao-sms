@@ -182,7 +182,7 @@ CakeLog::config('error', array(
 
 
 // Carrega o plugin de auditoria
-CakePlugin::load('CdiGadgets');
+//CakePlugin::load('CdiGadgets');
 
 // Constantes Globais
 define('PROC_AMBULATORIAL', 'A');
