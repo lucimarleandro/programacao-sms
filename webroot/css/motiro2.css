@@ -31,6 +31,10 @@ a:hover {
     color: #000;
 }
 
+p {
+    text-align: justify;
+}
+
 
 /*** BIBLIOTECA ***/
 .painel { overflow: hidden; }
@@ -324,6 +328,7 @@ label {
 }
 
 a.btn {
+    text-decoration: none;
     padding: 5px;
     border: 1px solid #333;
     border-radius: 2px;

@@ -5,7 +5,10 @@
             <span class="block"><?php echo mb_strtoupper($usuario['nome'], 'utf-8'); ?></span>
         </div>
         <div class="links">
-            <?php echo $this->Html->link('ajuda', 'javascript:;') ?>
+            <?php echo $this->Html->link('manual de utilização', array(
+                'controller' => 'manual',
+                'action' => 'index'
+            )) ?>
             <i class="icon-question-sign"></i>
             |
             <?php echo $this->Html->link('encerrar sessão', array(

@@ -19,16 +19,22 @@ class UsuariosController extends AppController {
  * 
  */
     public function login() {
-       if ($this->request->is('POST')) {           
-           if(($usuario = $this->autenticaUsuario())) {
-               $this->Auth->login($usuario['Usuario']);
-               $this->redirect($this->Auth->loginRedirect);
-           }else {
+        if ($this->request->is('POST')) {
+            if (($usuario = $this->autenticaUsuario())) {
+                $this->Auth->login($usuario['Usuario']);
+
+                // Verifica se é o primeiro acesso do usuário para redirecionar
+                // ao manual.
+                if ($this->Session->check('Usuario.primeiroAcesso'))
+                    $this->redirect(array('controller' => 'manual', 'action' => 'index'));
+                else
+                    $this->redirect($this->Auth->loginRedirect);
+            }else {
                 $this->Session->setFlash(__('Sua matrícula não foi encontrada.'), 'flash_erro');
-           }           
+            }
         }
     }
-    
+
 /**
  * 
  */
@@ -61,10 +67,16 @@ class UsuariosController extends AppController {
                 return false;
             }
             
+            // Verifica se é o primeiro acesso do usuário.
+            $v = $modelVisita->find('count', array(
+                'conditions' => array('Visita.matricula_id' => $matricula)
+            ));
+            if ($v == 1)
+                $this->Session->write('Usuario.primeiroAcesso', true);
+            
             return $usuario;
         }
         
         return false;
     }
 }
-?>

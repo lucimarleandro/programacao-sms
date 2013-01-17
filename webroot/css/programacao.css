@@ -195,3 +195,12 @@ table.gradeada thead tr th,
 table.gradeada thead tr td {
     color: #fff;
 }
+
+dl.sumario {
+    line-height: 1.8em;
+    margin-left: 50px;
+}
+
+dl.sumario dt {
+    margin-top: 15px;
+}
