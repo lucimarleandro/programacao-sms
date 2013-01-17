@@ -50,6 +50,7 @@ class AcoesController extends AppController {
             }else {
                 $this->Session->setFLash(__('Não foi possível cadastrar'), 'flash_erro');
                 $this->setAction('index', $this->request->data['Acao']['objetivo_especifico_id']);
+                return;
             }            
         }
         

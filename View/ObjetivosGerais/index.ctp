@@ -13,6 +13,9 @@
                         ));
                         ?>
                     </td>
+                    <td style="width: 10%" class="centralizado">
+                        R$ <?php echo number_format($somaAcoes[$id], 2, ',', '.'); ?>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
