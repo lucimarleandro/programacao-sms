@@ -144,14 +144,14 @@ small, small a, .small, .small a { color: #666; }
 .navorcamento .legenda {
     float: left;
     text-align: center;
-    padding: 10px;
+    padding: 11px 10px 12px;
     background-color: #ddd;
 }
 
 .navorcamento a {
     float: left;
     text-align: center;
-    padding: 10px 15px;
+    padding: 10px 15px 11px;
     font-size: .85em;
     line-height: 1.5em;
 }
@@ -203,4 +203,10 @@ dl.sumario {
 
 dl.sumario dt {
     margin-top: 15px;
+}
+
+p.destaque {
+    text-align: center;
+    background-color: #eee;
+    padding: 8px;
 }

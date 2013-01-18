@@ -42,6 +42,8 @@ p {
 .block { display: block; }
 .esquerda { float: left; }
 .direita { float: right; }
+.txt-esquerda { text-align: left; }
+.txt-direita { text-align: right; }
 .centralizado { text-align: center; }
 td.nowrap, th.nowrap { white-space: nowrap; }
 /*** FIM BIBLIOTECA ***/
@@ -348,7 +350,7 @@ input:focus,
 textarea:focus,
 select:focus {
     border-color: #999;
-    background: #f2f2f2;
+    background: #f7f7f7;
     color: #333;
 }
 

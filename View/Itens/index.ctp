@@ -45,7 +45,6 @@
                 <th>Marca</th>
                 <th>Unidade de Medida</th>
                 <th>Quantidade</th>
-                <th>Frequência</th>
                 <th style="min-width: 5%">Valor Unitátio</th>
                 <th style="min-width: 5%">Valor Total</th>
             </tr>
@@ -57,11 +56,15 @@
                 $i_nome = $item['Item']['nome'];
                 $i_marca = $item['Item']['marca'];
                 $i_descr = $item['Item']['descricao'];
-                $i_valor = number_format($item['Item']['valor'], 2, ',', '.');
                 $i_metrica = $item['Item']['metrica_id'];
                 $i_fonte = isset($item['Fonte']['nome']) ? $item['Fonte']['nome'] : false;
                 $o_qtde = isset($item['Orcamento']['qtde']) ? doubleval($item['Orcamento']['qtde']) : 0;
-                $s_total = number_format($item['Item']['valor'] * $o_qtde, 2, ',', '.');
+                $i_valor = $item['Item']['valor'];
+                $s_total = ($i_valor * $o_qtde);
+                $escalaU = ($i_valor > 0 && $i_valor < 0.01) ? 4 : 2;
+                $escalaT = ($s_total > 0 && $s_total < 0.01) ? 4 : 2;
+                $s_valor = number_format($i_valor, $escalaU, ',', '.');
+                $s_total = number_format($s_total, $escalaT, ',', '.');
                 ?>
                 <tr>
                     <td><?php echo isset($i_nome) ? $i_nome : $indisp; ?></td>
@@ -90,9 +93,8 @@
                         echo $formEnd;
                         ?>
                     </td>
-                    <td class="centralizado">--</td>
-                    <td class="nowrap centralizado">R$ <?php echo $i_valor; ?></td>
-                    <td class="nowrap centralizado">R$ <?php echo $s_total; ?></td>
+                    <td class="nowrap txt-direita">R$ <?php echo $s_valor; ?></td>
+                    <td class="nowrap txt-direita">R$ <?php echo $s_total; ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

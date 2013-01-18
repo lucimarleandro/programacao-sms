@@ -54,7 +54,8 @@ class ItensController extends AppController {
         );
         $opcoes['fields'] = array(
             'Item.*', 'Orcamento.qtde', 'Fonte.nome'
-        );        
+        );
+        $opcoes['limit'] = 300;
         $itens = array('Item'=>$this->Item->find('all', $opcoes));
         $dados = $acao + $itens;
         
